@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style.min.css">
-    <title>Exercice n° </title>
+    <title>Application Etudiant</title>
      
 </head>
 <body>
+    <div class="wrapper">
+        <h1>Vocabul🤓L</h1>
+        <div>L'app qui te permet de t'entraîner à retenir du vocabulaire</div>
+        <h3>Ajoutez des mots</h3>
+        <div class="inputBox">
+            <label for="original">Mot original</label>
+            <input type="text" id="original" placeholder="Entrez le mot original">
+            <label for="traduction">Traduction</label>
+            <input type="text" id="traduction" placeholder="Entrez la traduction du mot">
+        </div>
+        <div class="totalWords">Il y a 0 mot(s) enregistré(s)</div>
+        <div class="firstlineButtons">
+            <button class="send">Envoyer</button>
+            <button class="clearList">Effacer la liste en cours</button>
+        </div>
+        <button class="test">Teste tes connaissances</button>
+    </div>
     
     
     <script src="scripts/main.js"></script> 
