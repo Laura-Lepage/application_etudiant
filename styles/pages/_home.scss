@@ -52,6 +52,9 @@ body{
     .send{
         background-color: #d13f3f;
     }
+    .clearList{
+        background-color: #808080;
+    }
     
 }
 .test{
@@ -60,3 +63,57 @@ body{
     background-color: #703870;
     
 }
+.hiddenpart{
+    background-color: #393838;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+    transition: 0.5s ease-in-out;
+    .back{
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        font-size: 30px;
+        cursor: pointer;
+    }  
+}
+.slide{
+    transform: translateY(0);
+}
+.boxInHidepart{
+    @include absmiddle;
+    width: 95%;
+    h2{
+        text-transform: uppercase;
+        color: #fff;
+        span{
+            color: pink;
+        }
+    }
+    input, .compare{
+        width: 100%;
+        padding: 10px; 
+        border-radius: 5px;
+        border: none;
+    }
+    .compare{
+        background-color: #d13f3f;
+        margin-top: 10px;
+        text-transform: uppercase;
+        color: #fff;
+    }
+    .final{
+        color: #fff;
+        margin-top: 20px;
+        font-size: 25px;
+    }
+    .correctAnswers{
+        margin-top: 20px;
+        font-size: 20px;
+        color: #fff;
+    }
+}
+
