@@ -63,70 +63,64 @@ function Checklist(){
 loadWordsFromLocalStorage()
 
 
-
-//Quand on clique pour Enregistrer un mot
+// Quand on clique pour Enregistrer un mot
 sendButton.addEventListener('click', function(){
     if (original.value.trim() !== '' && traduction.value.trim() !== ''){
-        mots.push(
-            {
-                "original" : original.value,
-                "traduction" : traduction.value,
-            }
-        )
-        //effacer la liste avant d'ajouter des nouveaux éléments
-        ulWordsList.innerHTML = "" 
+        mots.push({
+            "original" : original.value,
+            "traduction" : traduction.value,
+        });
+
+        // effacer la liste avant d'ajouter des nouveaux éléments
+        ulWordsList.innerHTML = "";
 
         for (let i = 0; i < mots.length; i++) {
             ulWordsList.innerHTML += `
-                <li>${mots[i].original}: ${mots[i].traduction}<button class="cross">❌</button></li>
+                <li data-index="${mots.length}">${mots[i].original}: ${mots[i].traduction}<button class="cross">❌</button></li>
             `
         }
+
+        // Événement sur le bouton "❌" pour supprimer un mot de la liste
+        ulWordsList.addEventListener("click", function(event){
+            if (event.target.classList.contains("cross")) {
+                // Définir la const pour récupérer l'index du mot dans la liste
+                const index = event.target.parentElement.dataset.index;
+                // Supprimer le parent li de l'élément cliqué
+                event.target.parentElement.remove();
+                // Supprimer le mot correspondant du tableau 'words'
+                if (index !== undefined) {
+                    mots.splice(index, 1); // Enlève la ligne correspondante à l'index
+                    // Mettre à jour les attributs data-index des éléments restants dans la liste
+                    const listItems = ulWordsList.querySelectorAll("li"); // Chercher tous les li de mon ul
+                    listItems.forEach((item, i) => { // listItems tous mes Li, et item mon li tout seul, i = index
+                        item.dataset.index = i;
+                    });
+                    // Mettre à jour le stockage local
+                    localStorage.setItem("mots", JSON.stringify(mots));
+                    // Mettre à jour le compteur de mots
+                    updateTotalWords();
+                }
+            }
+        console.log(mots)
+        })
         
-        let boutons = document.querySelectorAll(".cross")
-        boutons.forEach(function(bouton){
-            bouton.addEventListener('click', function(){
-                // Récupérer l'index de l'élément à supprimer à partir de l'attribut data-index
-                let index = parseInt(bouton.getAttribute('data-index'));
-                // Supprimer l'élément du tableau mots
-                mots.splice(index, 1)
-                // Supprimer l'élément de la liste HTML
-                bouton.parentElement.remove()
-                
-                // Mettre à jour la checklist
-                Checklist()
-                updateTotalWords()
-                console.log(mots);
-                
-                
-            })     
-        })   
-        Checklist()
+        original.value = '';
+        traduction.value = '';
+        localStorage.setItem('mots', JSON.stringify(mots));
 
+        console.log(mots);
 
+        // affichage de la phrase avec le total de mot(s) enregistré(s)
+        updateTotalWords();
+
+        // Vérifie si le tableau contient au moins un objet pour afficher le bouton "test"
+        if (mots.length > 0) {
+            testButton.style.display = 'block';
+        } else {
+            testButton.style.display = 'none';
+        }
     }
-    original.value = ''
-    traduction.value = ''
-    localStorage.setItem('mots', JSON.stringify(mots))
-    
-    console.log(mots);
-
-    //affichage de la phrase avec le total de mot(s) enregistré(s)
-    updateTotalWords()
-
-    // Vérifie si le tableau contient au moins un objet pour afficher le bouton "test"
-    if (mots.length > 0) {
-        testButton.style.display = 'block';
-    } else {
-        testButton.style.display = 'none';
-    }
-
-    
-
-    
 })
-
-
-
 
 //Quand on clique sur le bouton Effacer = effacer la liste en cours
 const clearButton = document.querySelector(".clearList")
